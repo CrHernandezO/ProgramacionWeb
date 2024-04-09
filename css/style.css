@@ -1,0 +1,33 @@
+body{
+    background-color: blue;
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+h1,h2{
+    text-align: center;
+}
+
+ul{
+    text-align: center;
+    list-style: none;
+}
+.center{
+    margin:auto;
+    width: 50%;
+    text-align: center;
+    border: 3px solid white;
+    padding: 20px;
+}
+img{
+    display: block;
+    margin: auto;
+    border: 3px solid white;
+    border-radius: 25%;
+    transition: height 2s , width 2s,border-color 2s;
+}
+
+
+
+
+
+
