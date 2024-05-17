@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Register</title>
+      <link rel="stylesheet" href="../css/bootstrap.min.css">
+  </head>
+  <body>
+      <div class="container-fluid">
+          <header>
+            <!-- Inicio -->
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+              <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                  <img src="../img/iconduoc.png" alt="" width="200" >
+                </a>
+                <button
+                  class="navbar-toggler"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+                  <ul class="navbar-nav mx-auto mb-2 mb-lg-0 h2" >
+                    <li class="nav-item " >
+                      <a class="nav-link active" aria-current="page" href="#"
+                      >Inicio</a
+                      >
+                    </li>
+                    <li class="nav-item ">
+                      <a class="nav-link" href="catalogo.html">Catalogo</a>
+                    </li>
+                    <li class="nav-item ">
+                      <a class="nav-link" href="iniciosesion.html">Iniciar Sesion</a>
+                    </li>
+                    <li class="nav-item ">
+                      <a class="nav-link" href="Registro.html">Registro</a>
+                    </li>
+                    <li class="nav-item dropdown ">
+                      <a
+                        class="nav-link dropdown-toggle"
+                        href="catalogo.html"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                      Más información
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="somos.html">Quienes somos?</a></li>
+                      <li><a class="dropdown-item" href="preguntasF.html">Preguntas Frecuentes</a></li>
+                    </ul>
+
+                  </ul>
+                </div>
+              </div>
+            </nav>
+          </header>
+      </div>
+      <!-- Fin -->
+      <div class="container-fluid">
+          <div class="row mx-auto">
+              <form action="" method="POST" class="col-6 mx-auto shadow-lg p-5 text-center">
+                  <h1>Register</h1>
+                  <div class="form-floating mb-2 w-50 mx-auto">
+                      <input type="text" class="form-control" name="nombrecompleto" id="nombrecompleto"
+                          placeholder="Ingrese su Nombre Completo">
+                      <label for="nombrecompleto">Nombre Completo:</label>
+                  </div>
+                  <div class="form-floating mb-2 w-50 mx-auto">
+                      <input type="text" class="form-control" name="rut" id="rut"
+                          placeholder="Ingrese su Rut">
+                      <label for="rut">Rut:</label>
+                  </div>
+                  <div class="form-floating mb-2 w-50 mx-auto">
+                      <input type="password" class="form-control" name="pass" id="pass"
+                          placeholder="Ingrese su Contraseña">
+                      <label for="pass">Contraseña:</label>
+                  </div>
+                  <div class="form-floating mb-2 w-50 mx-auto">
+                      <input type="email" class="form-control" name="correo" id="correo"
+                          placeholder="Ingrese su Correo Electronico">
+                      <label for="correo">Correo Electronico:</label>
+                  </div>
+                  <div class="form-floating mb-2 w-50 mx-auto">
+                      <input type="date" class="form-control" name="f_nac" id="f_nac"
+                          placeholder="Ingrese su Fecha de Nacimiento">
+                      <label for="f_nac">Fecha de Nacimiento:</label>
+                  </div>
+                  <div class="form-floating mb-2 w-50 mx-auto">                
+                      <h4>Genero</h4>
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="genero" id="generoM">
+                          <label class="form-check-label " for="generoM">Masculino</label>
+                      </div>       
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="genero" id="generoF">
+                          <label class="form-check-label" for="generoF">Femenino</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="genero" id="generoO">
+                          <label class="form-check-label " for="generoO">Otros</label>
+                      </div>     
+                  </div>
+
+                  <div class="form-floating mb-2 w-50 mx-auto ">
+                      <select class="form-select" name="optRol" id="optRol">
+                          <option value="">Seleccione</option>
+                          <option value="Incompleto">Incompleto</option>
+                          <option value="Basica">Basica</option>
+                          <option value="Media">Media</option>
+                          <option value="Universitaria">Universitaria</option>
+                          <option value="Doctorado">Doctorado</option>
+                      </select>
+                      <label for="optRol">Nivel Estudio</label>
+                  </div>
+                  <div>
+                      <input type="submit" value="Ingresar" class="btn btn-outline-primary">
+                      <input type="reset" value="Limpiar" class="btn btn-outline-warning">
+                      <button type="button" class="btn btn-outline-success" onclick="verInfo()">Click me</button>
+                  </div>
+              </form>
+            </div>
+      </div>
+      <div class="cosntainerfooter">
+        <footer class="row  mx-auto row-cols-sm-2 row-cols-md-5 py-5">
+          <div class="col mb-3">
+            <a href="index.html" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
+              <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+            </a>
+            <img src="../img/iconduoc.png" width="250">
+            <p class="text-center">© 2024</p>
+          </div> 
+          <div class="col mb-3">
+            <h5 class="py-2">Servicio</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-3"><a href="index.html" class="nav-link p-0 text-muted">Inicio</a></li>
+              <li class="nav-item mb-3"><a href="somos.html" class="nav-link p-0 text-muted">Quienes somos?</a></li>
+              <li class="nav-item mb-3"><a href="preguntasF.html" class="nav-link p-0 text-muted">Preguntas Frecuentes</a></li>
+    
+            </ul>
+          </div>
+      
+          <div class="col mb-3">
+            <h5 class="py-2">Redes sociales</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-3"><a href="#" class="nav-link p-0 text-muted">Whatsapp</a></li>
+              <li class="nav-item mb-3"><a href="#" class="nav-link p-0 text-muted">Instagram</a></li>
+              <li class="nav-item mb-3"><a href="#" class="nav-link p-0 text-muted">Twitter</a></li>
+            </ul>
+          </div>
+        </footer>
+      </div>
+      <script src="../js/bootstrap.bundle.min.js"></script>
+      <script>
+          function verInfo(){
+              var nom = document.getElementById("nombrecompleto").value;
+              var rut = document.getElementById("rut").value;
+              var pas = document.getElementById("pass").value;
+              var correo = document.getElementById("correo").value;
+              var fnac = document.getElementById("f_nac").value;
+              var genero = document.querySelector('input[name="genero"]:checked').nextElementSibling.textContent;
+              var optR = document.getElementById("optRol").value;
+
+              console.log("Nombre Completo: "+nom+", Rut: "+rut+", Contraseña: "+pas+", Correo: "+correo+", Fecha Nacimiento: "+fnac+", Genero: "+genero+", Nivel Estudio: "+optR);
+          }
+      </script>
+  </body>
+
+</html>
+
+<!-- LOCAL STORAGE -->
