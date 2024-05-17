@@ -107,34 +107,40 @@
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function () {
-            // Al cargar la página, verificamos si hay credenciales almacenadas
-            let storedUser = localStorage.getItem('user');
-            let storedPass = localStorage.getItem('pass');
+    // Al cargar la página, verificamos si hay credenciales almacenadas
+    let storedUser = localStorage.getItem('user');
+    let storedPass = localStorage.getItem('pass');
 
-            // Si hay credenciales almacenadas, las utilizamos para el inicio de sesión
-            if (storedUser && storedPass) {
-                $('#user').val(storedUser);
-                $('#pass').val(storedPass);
-            }
+    // Si hay credenciales almacenadas, las utilizamos para el inicio de sesión
+    if (storedUser && storedPass) {
+        $('#user').val(storedUser);
+        $('#pass').val(storedPass);
+    }
 
-            // Cuando se envía el formulario, verificamos las credenciales
-            $('#formulario').submit(function (e) {
-                e.preventDefault(); // Evitar que se envíe el formulario
+    // Cuando se envía el formulario, verificamos las credenciales
+    $('#formulario').submit(function (e) {
+        e.preventDefault(); // Evitar que se envíe el formulario
 
-                // Obtener el usuario y la contraseña ingresados por el usuario
-                let user = $('#user').val();
-                let pass = $('#pass').val();
+        // Obtener el usuario y la contraseña ingresados por el usuario
+        let user = $('#user').val();
+        let pass = $('#pass').val();
 
-                // Verificar si coinciden con las credenciales almacenadas
-                if (user === storedUser && pass === storedPass) {
-                    // Si coinciden, se muestra un mensaje de éxito
-                    $('#check').html('<p class="text-success">Inicio de sesión exitoso.</p>');
-                } else {
-                    // Si no coinciden, se muestra un mensaje de error
-                    $('#check').html('<p class="text-danger">Credenciales incorrectas.</p>');
-                }
-            });
-        });
+        // Verificar si se dejaron campos vacíos
+        if (user.trim() === '' || pass.trim() === '') {
+            $('#check').html('<p class="text-danger">Por favor, completa todos los campos.</p>');
+            return; // Detener la ejecución
+        }
+
+        // Verificar si coinciden con las credenciales almacenadas
+        if (user === storedUser && pass === storedPass) {
+            // Si coinciden, se muestra un mensaje de éxito
+            $('#check').html('<p class="text-success">Inicio de sesión exitoso.</p>');
+        } else {
+            // Si no coinciden, se muestra un mensaje de error
+            $('#check').html('<p class="text-danger">Credenciales incorrectas.</p>');
+        }
+    });
+});
     </script>
 </body>
 </html>
