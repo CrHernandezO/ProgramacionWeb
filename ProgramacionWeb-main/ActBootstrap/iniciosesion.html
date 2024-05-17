@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesion</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- JQUERY -->
+</head>
+<body id="navssss">
+    <header id="navssss">
+        <!-- Inicio -->
+        <nav class="navbar navbar-expand-lg" id="letras">
+            <div class="container-fluid" id="letras" > 
+                <a class="navbar-brand" href="#">
+                    <img class="card_img" src="../img/logodef.png"  width="100" />
+                </a>
+                <button
+                    class="navbar-toggler  border-white bg-white"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon bg-white"></span>
+                </button>
+                <div class="navss collapse navbar-collapse" id="navbarSupportedContent" >
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 h2"  >
+                        <li class="nav-item " >
+                            <a class="nav-link active text-white" aria-current="page" href="index.html">Inicio</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white" href="catalogo.html">Catalogo</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white" href="#">Iniciar Sesion</a>
+                        </li>
+                        <li class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle text-white" href="catalogo.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Más informaciaón
+                            </a>
+                            <ul class="dropdown-menu text-bg-dark">
+                                <li><a class="dropdown-item text-white" href="somos.html">Quienes somos?</a></li>
+                                <li><a class="dropdown-item text-white" href="preguntasF.html">Preguntas Frecuentes</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Fin -->
+    </header>
+    <br>
+    <div class="container-fluid">
+        <div class="row p-5">
+            <form action="" method="POST" class="col-6 mx-auto shadow-lg p-5 text-center" id="formulario">
+                <h1>Iniciar Sesion</h1>
+                <div class="form-floating mb-2 w-50 mx-auto">
+                    <input type="text" class="form-control" name="user" id="user" placeholder="Ingrese su usuario" required>
+                    <label for="user">Usuario:</label>
+                </div>
+                <div class="form-floating mb-2 w-50 mx-auto">
+                    <input type="password" class="form-control" name="pass" id="pass" placeholder="Ingrese su contraseña" required>
+                    <label for="pass">Contraseña:</label>
+                </div>
+                <a href="Registro.html"><h6>¿No tienes cuenta? ¡Registrate!</h6></a>
+                <div class="mx-auto p-4">
+                    <input type="submit" value="Ingresar" class="btn btn-outline-primary w" id="btnLogin" href="index.html">
+                    <input type="reset" value="Limpiar" class="btn btn-outline-danger">
+                </div>
+                <div id="check"></div> <!-- Div para mostrar mensajes de validación -->
+            </form>
+        </div>
+        <div class="containerfooter container-fluid ">
+            <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5">
+                <div class="col mb-3">
+                    <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
+                        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                    </a>
+                    <a class="navbar-brand" href="#">
+                        <img class="card_img" src="../img/logodef.png" width="200">
+                    </a>
+                    <p class="text-center">© 2024</p>
+                </div>
+                <div class="col mb-3 py-5">
+                    <h5 class="py-2">Servicio</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-3"><a href="#" class="nav-link p-0 text-light">Inicio</a></li>
+                        <li class="nav-item mb-3"><a href="somos.html" class="nav-link p-0  text-light">Quienes somos?</a></li>
+                        <li class="nav-item mb-3"><a href="preguntasF.html" class="nav-link p-0 text-light">Preguntas Frecuentes</a></li>
+                    </ul>
+                </div>
+                <div class="col mb-3 py-5">
+                    <h5 class="py-2">Redes sociales</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-3"><a href="#" class="nav-link p-0 text-light">Whatsapp</a></li>
+                        <li class="nav-item mb-3"><a href="#" class="nav-link p-0 text-light">Instagram</a></li>
+                        <li class="nav-item mb-3"><a href="#" class="nav-link p-0 text-light">Twitter</a></li>
+                    </ul>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Al cargar la página, verificamos si hay credenciales almacenadas
+            let storedUser = localStorage.getItem('user');
+            let storedPass = localStorage.getItem('pass');
+
+            // Si hay credenciales almacenadas, las utilizamos para el inicio de sesión
+            if (storedUser && storedPass) {
+                $('#user').val(storedUser);
+                $('#pass').val(storedPass);
+            }
+
+            // Cuando se envía el formulario, verificamos las credenciales
+            $('#formulario').submit(function (e) {
+                e.preventDefault(); // Evitar que se envíe el formulario
+
+                // Obtener el usuario y la contraseña ingresados por el usuario
+                let user = $('#user').val();
+                let pass = $('#pass').val();
+
+                // Verificar si coinciden con las credenciales almacenadas
+                if (user === storedUser && pass === storedPass) {
+                    // Si coinciden, se muestra un mensaje de éxito
+                    $('#check').html('<p class="text-success">Inicio de sesión exitoso.</p>');
+                } else {
+                    // Si no coinciden, se muestra un mensaje de error
+                    $('#check').html('<p class="text-danger">Credenciales incorrectas.</p>');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
