@@ -59,13 +59,13 @@
   <!-- Fin -->
   <div class="container-fluid">
     <div class="row">
-      <form id="formulario" class="col-6 text-center mx-auto shadow-lg mt-5 mb-3 p-3">
+      <form action="iniciosesion.html" id="formulario" class="col-6 text-center mx-auto shadow-lg mt-5 mb-3 p-3">
         <div class="my-3">
           <h2>Registrar Usuario</h2>
         </div>
         <div class="form-floating w-50 mx-auto mb-3">
-          <input type="text" class="form-control" id="txtUser" name="txtUser" placeholder="Ingrese su nombre de usuario" required />
-          <label for="txtUser">Nombre de Usuario: </label>
+          <input type="text" class="form-control" id="user" name="user" placeholder="Ingrese su nombre de usuario" required />
+          <label for="user">Nombre de Usuario: </label>
         </div>
         <div class="form-floating w-50 mx-auto mb-3">
           <input type="password" class="form-control" id="pass" name="pass" placeholder="Ingrese su Contraseña" required />
@@ -135,6 +135,7 @@
         <div id="check"></div>
         <div class="w-50 mx-auto mb-3">
           <button type="button" id="btnEnviar" class="btn btn-outline-primary" href="iniciosesion.html">Registrarse</button>
+          <input type="reset" value="Limpiar" class="btn btn-outline-danger">
         </div>
       </form>
     </div>
@@ -200,7 +201,7 @@
       let genero = $("input[name=optGenero]:checked").val();
       let mail = $("#txtMail").val();
       let telefono = $("#txtTelefono").val();
-      let user = $("#txtUser").val();
+      let user = $("#user").val();
       let pass = $("#pass").val();
 
       if (validarDatos(rut, nombre, appaterno, apmaterno, edad, genero, telefono, mail, fecha, user, pass)) {
@@ -271,6 +272,7 @@
         // Guardar el usuario y la contraseña en el almacenamiento local
         localStorage.setItem("user", user);
         localStorage.setItem("pass", pass);
+        window.location.href = "iniciosesion.html";
         return true;
       }
       function validateEmail(email) {

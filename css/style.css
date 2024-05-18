@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 #navssss {
     background-color: #2034508a;
@@ -37,17 +36,6 @@ h1,h2,h5{
 }
 
 
-=======
-body{
-    background-color: blue;
-    color: white;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-h1,h2{
-    text-align: center;
-}
-
->>>>>>> efb1bb663ac491a51af8b4f838c218575123771f
 ul{
     text-align: center;
     list-style: none;
@@ -56,7 +44,6 @@ ul{
     margin:auto;
     width: 50%;
     text-align: center;
-<<<<<<< HEAD
     padding: 20px;
 }
 .carousel-item
@@ -356,21 +343,5 @@ section {
 .containerfooter{
     background-color: #2034508a;
 }
-=======
-    border: 3px solid white;
-    padding: 20px;
-}
-img{
-    display: block;
-    margin: auto;
-    border: 3px solid white;
-    border-radius: 25%;
-    transition: height 2s , width 2s,border-color 2s;
-}
-
-
-
-
->>>>>>> efb1bb663ac491a51af8b4f838c218575123771f
 
 
