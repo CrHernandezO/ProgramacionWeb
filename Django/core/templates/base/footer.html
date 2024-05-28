@@ -1,0 +1,37 @@
+{%load static%}
+
+<div class="containerfooter container-fluid">
+    <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5">
+      <div class="col mb-3">
+        <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
+          <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        </a>
+        <a class="navbar-brand" href="{% url 'index'%}">
+          <img class="card_img" src="{% static 'img/logodef.png'%}"  width="200">
+        </a>
+        <p class="text-center">© 2024</p>
+      </div>
+
+  
+      <div class="col mb-3 py-5">
+        <h5 class="py-2">Servicio</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-3"><a href="{% url 'index'%}" class="nav-link p-0 text-light">Inicio</a></li>
+          <li class="nav-item mb-3"><a href="{% url 'somos'%}" class="nav-link p-0  text-light">Quienes somos?</a></li>
+          <li class="nav-item mb-3"><a href="{% url 'preguntasF'%}" class="nav-link p-0 text-light">Preguntas Frecuentes</a></li>
+
+        </ul>
+      </div>
+  
+      <div class="col mb-3 py-5">
+        <h5 class="py-2">Redes sociales</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-3"><a href="#" class="nav-link p-0 text-light">Whatsapp</a></li>
+          <li class="nav-item mb-3"><a href="#" class="nav-link p-0 text-light">Instagram</a></li>
+          <li class="nav-item mb-3"><a href="#" class="nav-link p-0 text-light">Twitter</a></li>
+        </ul>
+      </div>
+  
+      </div>
+    </footer>
+</div>

@@ -1,0 +1,36 @@
+py --version
+pip --version
+pip install django
+
+
+:d para cambiar de disco o :c
+django-admin startproject Django
+
+ cd .\Django\ para entrar a la carpeta de django
+
+dir para saber si django esta instalado
+
+
+
+py manage.py  runserver para hacer que django inicie el servidor
+python manage.py migrate
+control´+c para calir
+
+#cuando el usuario ingrese al apartado de core, ira al archivo de rutas el cual les puedo configurar index o ruta en especifico
+
+py manage.py startapp core 
+
+dir
+
+py manage.py makemigration
+
+py manage.py createsuperuser (creara un usuario, pedira un username este sera admin
+                              pedira un mail=
+                              y una contraseña que no muestra ten cuidado! esta sera admin y te preguntara si quieres dejarla de todas maneras
+                              y/n = y)
+
+
+
+                              en el buscador pondremos /admin
+                              y entraremos django administrate
+ 
