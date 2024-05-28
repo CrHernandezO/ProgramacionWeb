@@ -22,7 +22,7 @@ py manage.py startapp core
 
 dir
 
-py manage.py makemigration
+py manage.py makemigrations
 
 py manage.py createsuperuser (creara un usuario, pedira un username este sera admin
                               pedira un mail=

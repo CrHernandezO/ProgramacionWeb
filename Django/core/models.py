@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 # Create your models here.
 
 class Genero(models.Model):
@@ -23,4 +24,22 @@ class Usuario(models.Model):
     activo= models.BooleanField()
     def __str__(self):
         return str(self.nombre)+" "+ str(self.apellido_paterno)+ " "+ str(self.apellido_materno)
-    
+
+
+class Figura(models.Model):
+    nombre_figura = models.CharField(max_length=20)
+    anime = models.CharField(max_length=20)
+    marca = models.CharField(max_length=20)
+    fecha_lanzamiento = models.DateField(blank=False, null=False)
+    precio=models.IntegerField()
+    tamano=models.CharField(max_length=20)
+    id_figura = models.IntegerField( editable=False,primary_key=True)
+    def asignar_numero_secuencia(sender, instance, **kwargs):
+        if not instance.id_figura:
+            ultimo_registro = Figura.objects.last()
+            if ultimo_registro:
+                instance.id_figura = ultimo_registro.id_figura + 1
+            else:
+                instance.id_figura = 1
+    def __str__(self):
+        return str(self.nombre_figura)+" "+ str(self.anime)+ " "+ str(self.id_figura)
