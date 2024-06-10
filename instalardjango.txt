@@ -6,7 +6,7 @@ pip install django
 :d para cambiar de disco o :c
 django-admin startproject Django
 
- cd .\Django\ para entrar a la carpeta de django
+cd .\Django\ para entrar a la carpeta de django
 
 dir para saber si django esta instalado
 
