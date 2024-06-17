@@ -9,4 +9,10 @@ urlpatterns=[
     path("kaoricompra",views.kaoricompra,name="kaoricompra"),
     path("preguntasF",views.preguntasF,name="preguntasF"),
     path("somos",views.somos,name="somos"),
+    path("crud",views.crud,name="crud"),
+    path("user_add",views.user_add,name="user_add"),
+    path("crud_genero",views.crud_genero,name="crud_genero"),
+    path("genero_add",views.genero_add,name="genero_add"),
+
+
 ]

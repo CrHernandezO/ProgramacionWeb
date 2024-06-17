@@ -37,3 +37,15 @@ def somos(request):
 
     context={}
     return render(request,"pages/somos.html",context)
+def crud(request):
+    context={}
+    return render(request,"pages/pages/crud.html",context)
+def user_add(request):
+    context={}
+    return render(request,"pages/pages/user_add.html",context)
+def crud_genero(request):
+    context={}
+    return render(request,"pages/pages/crud_genero.html",context)
+def genero_add(request):
+    context={}
+    return render(request,"pages/pages/genero_add.html",context)
