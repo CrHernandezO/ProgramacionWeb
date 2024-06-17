@@ -19,7 +19,7 @@ control´+c para calir
 #cuando el usuario ingrese al apartado de core, ira al archivo de rutas el cual les puedo configurar index o ruta en especifico
 
 py manage.py startapp core 
-
+C:\Users\paraf\OneDrive\Desktop\ProgramacionWeb\Django
 dir
 
 py manage.py makemigrations
