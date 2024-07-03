@@ -350,6 +350,7 @@ section {
 }
 .containerfooter{
     background-color: #2034508a;
+    position: static;
 }
 
 
