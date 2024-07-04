@@ -21,7 +21,6 @@ class Usuario(models.Model):
     telefono = models.CharField(max_length=20)
     email = models.EmailField(unique = True,max_length=100, blank=False, null=False)
     direccion = models.CharField(max_length=50, blank=True, null=True)
-    activo= models.BooleanField()
     def __str__(self):
         return str(self.nombre)+" "+ str(self.apellido_paterno)+ " "+ str(self.apellido_materno)
 
