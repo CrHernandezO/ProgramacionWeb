@@ -13,7 +13,6 @@ def index(request):
 
 
 def catalogo(request):
-
     context={}
     return render(request,"pages/catalogo.html",context)
 
@@ -50,7 +49,7 @@ def crud(request):
     }
     return render(request, "pages/crud.html", context)
 
-
+@login_required
 def user_add(request):
     if request.method != "POST":
         generos = Genero.objects.all()
@@ -92,7 +91,7 @@ def user_add(request):
         }
         return render(request, "pages/user_add.html", context)
 
-
+@login_required
 def user_del(request, pk):
     try:
         usuario = Usuario.objects.get(rut=pk)
@@ -111,7 +110,7 @@ def user_del(request, pk):
             "usuarios": usuarios,
         }
         return render(request, "pages/crud.html", context)
-
+@login_required
 def user_findEdit(request,pk):
     if pk!="":
         """ 
@@ -133,7 +132,7 @@ def user_findEdit(request,pk):
             "usuarios":usuarios
         }
         return render(request,"pages/crud.html",context)
-
+@login_required
 def user_update(request):
     if request.method=="POST":
         """ 
@@ -183,22 +182,25 @@ def user_update(request):
     
 @login_required
 def crud_figura(request):
-    usuarios = Usuario.objects.all()
+    figuras = Figura.objects.all()
     context = {
-        "usuarios": usuarios,
+        "figuras": figuras,
     }
-    return render(request, "pages/crud.html", context)
+    return render(request, "pages/crud_figura.html", context)
 
-
+@login_required
 def figura_add(request):
     if request.method != "POST":
-        figuras = Figura.objects.all()
+        animes = Anime.objects.all()
+        marcas = Marca.objects.all()
+
         context = {
-            "figuras": figuras,
+            "animes": animes,
+            "marcas": marcas,
+
         }
         return render(request, "pages/figura_add.html", context)
     else:
-        id_figura = request.POST["idfigura"]
         nombre_figura = request.POST["nombre"]
         anime = request.POST["anime"]
         marca = request.POST["marca"]
@@ -210,11 +212,10 @@ def figura_add(request):
         objAnime = Anime.objects.get(id_anime=anime)
         objMarca= Marca.objects.get(id_marca=marca)
 
-        obj = Usuario.objects.create(
-            id_figura=id_figura,
+        obj = Figura.objects.create(
             nombre_figura=nombre_figura,
-            anime=objAnime,
-            marca=objMarca,
+            id_anime=objAnime,
+            id_marca=objMarca,
             fecha_lanzamiento=fecha_lanzamiento,
             precio=precio,
             tamano=tamano,
@@ -226,7 +227,7 @@ def figura_add(request):
         }
         return render(request, "pages/figura_add.html", context)
 
-
+@login_required
 def figura_del(request, pk):
     try:
         figura = Figura.objects.get(id_figura=pk)
@@ -245,7 +246,7 @@ def figura_del(request, pk):
             "figuras": figuras,
         }
         return render(request, "pages/crud_figura.html", context)
-
+@login_required
 def figura_findEdit(request,pk):
     if pk!="":
         """ 
@@ -270,7 +271,7 @@ def figura_findEdit(request,pk):
             "figuras":figuras
         }
         return render(request,"pages/crud_figura.html",context)
-
+@login_required
 def figura_update(request):
     if request.method=="POST":
         """ 
@@ -278,7 +279,6 @@ def figura_update(request):
             Identificamos
             Asignamos nombre 
         """
-        id_figura = request.POST["idfigura"]
         nombre_figura = request.POST["nombre"]
         anime = request.POST["anime"]
         marca = request.POST["marca"]
@@ -290,11 +290,10 @@ def figura_update(request):
         objAnime = Anime.objects.get(id_anime=anime)
         objMarca= Marca.objects.get(id_marca=marca)
 
-        obj = Usuario.objects.create(
-            id_igura=id_figura,
+        obj = Figura.objects.create(
             nombre_figura=nombre_figura,
-            anime=objAnime,
-            marca=objMarca,
+            id_anime=objAnime,
+            id_marca=objMarca,
             fecha_lanzamiento=fecha_lanzamiento,
             precio=precio,
             tamano=tamano,
@@ -324,7 +323,7 @@ def crud_genero(request):
         "generos":generos,
     }
     return render(request,"pages/crud_genero.html",context)
-
+@login_required
 def genero_add(request):
     formGenero = GeneroForm()
     formUsuario = UsuarioForm()
@@ -344,7 +343,7 @@ def genero_add(request):
             "form2":formUsuario
         }
         return render(request,"pages/genero_add.html",context)
-
+@login_required
 def genero_del(request,pk):
     try:
         genero = Genero.objects.get(id_genero=pk)
@@ -363,7 +362,7 @@ def genero_del(request,pk):
             "generos":generos
         }
         return render(request,"pages/crud_genero.html",context)
-
+@login_required
 def genero_edit(request,pk):
     if pk!="":
         genero = Genero.objects.get(id_genero=pk)
@@ -399,7 +398,7 @@ def crud_anime(request):
         "animes":animes,
     }
     return render(request,"pages/crud_anime.html",context)
-
+@login_required
 def anime_add(request):
     formAnime = AnimeForm()
     formUsuario = UsuarioForm()
@@ -419,7 +418,7 @@ def anime_add(request):
             "form2":formUsuario
         }
         return render(request,"pages/anime_add.html",context)
-
+@login_required
 def anime_del(request,pk):
     try:
         anime = Anime.objects.get(id_anime=pk)
@@ -438,7 +437,7 @@ def anime_del(request,pk):
             "animes":animes
         }
         return render(request,"pages/crud_anime.html",context)
-
+@login_required
 def anime_edit(request,pk):
     if pk!="":
         anime = Anime.objects.get(id_anime=pk)
@@ -475,7 +474,7 @@ def crud_marca(request):
         "marcas":marcas,
     }
     return render(request,"pages/crud_marca.html",context)
-
+@login_required
 def marca_add(request):
     formMarca = MarcaForm()
     formUsuario = UsuarioForm()
@@ -495,7 +494,7 @@ def marca_add(request):
             "form2":formUsuario
         }
         return render(request,"pages/marca_add.html",context)
-
+@login_required
 def marca_del(request,pk):
     try:
         marca = Marca.objects.get(id_marca=pk)
@@ -514,7 +513,7 @@ def marca_del(request,pk):
             "marcas":marcas
         }
         return render(request,"pages/crud_marca.html",context)
-
+@login_required
 def marca_edit(request,pk):
     if pk!="":
         marca = Marca.objects.get(id_marca=pk)
@@ -542,12 +541,12 @@ def marca_edit(request,pk):
             "marcas":marcas
         }
         return render(request,"pages/crud_marca.html",context)
-
+@login_required
 def loginSession(request):
     if request.method=="POST":
         username = request.POST["username"]
         password = request.POST["password"]
-        if username=="j.riquelmee" and password=="pass1234":
+        if username=="happy" and password=="happy":
             request.session["user"] = username
             usuarios = Usuario.objects.all()
             context = {

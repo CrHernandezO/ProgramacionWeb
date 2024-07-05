@@ -1,6 +1,4 @@
 from django.db import models
-from django.db.models.signals import pre_save
-from django.dispatch import receiver
 # Create your models here.
 
 class Genero(models.Model):
@@ -25,9 +23,25 @@ class Usuario(models.Model):
         return str(self.nombre)+" "+ str(self.apellido_paterno)+ " "+ str(self.apellido_materno)
 
 
+class Anime(models.Model):
+    id_anime= models.AutoField(db_column="idAnime",primary_key=True)
+    anime = models.CharField(max_length=40, blank=False, null=False)
+
+
+    def __str__(self):
+        return str(self.anime)
+
+class Marca(models.Model):
+    id_marca= models.AutoField(db_column="idMarca",primary_key=True)
+    marca = models.CharField(max_length=40, blank=False, null=False)
+
+
+    def __str__(self):
+        return str(self.marca)
+    
 class Figura(models.Model):
     id_figura = models.AutoField( db_column="idFigura",editable=False,primary_key=True)
-    nombre_figura = models.CharField(max_length=20)
+    nombre_figura = models.CharField(max_length=40)
     id_anime = models.ForeignKey("Anime", on_delete= models.CASCADE , db_column = "idAnime")
     id_marca = models.ForeignKey("Marca", on_delete= models.CASCADE , db_column = "idMarca")
     fecha_lanzamiento = models.DateField(blank=False, null=False)
@@ -37,18 +51,3 @@ class Figura(models.Model):
     def __str__(self):
         return str(self.nombre_figura)+" "+ str(self.anime)+ " "+ str(self.id_figura)
     
-class Anime(models.Model):
-    id_anime= models.AutoField(db_column="idAnime",primary_key=True)
-    anime = models.CharField(max_length=20, blank=False, null=False)
-
-
-    def __str__(self):
-        return str(self.anime)
-
-class Marca(models.Model):
-    id_marca= models.AutoField(db_column="idMarca",primary_key=True)
-    marca = models.CharField(max_length=20, blank=False, null=False)
-
-
-    def __str__(self):
-        return str(self.marca)

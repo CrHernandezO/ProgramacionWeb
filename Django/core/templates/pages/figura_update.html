@@ -20,13 +20,17 @@
                     <form action="{% url 'figura_update' %}" method="POST" class="form-floating">
                         {% csrf_token %}
                         <div class="form-floating mb-3 w-25 mx-auto">
-                            <input type="text" class="form-control" id="nombre" name="nombre">
+                            <input type="text" value={{figura.nombre_figura}} class="form-control" id="nombre" name="nombre">
                             <label for="nombre" class="form-label">Nombre Figura</label>
                         </div>
                         <div class="form-floating mb-3 w-25 mx-auto">
                             <select class="form-select" id="anime" name="anime">
                                 {% for tmp in animes %}
+                                {% if tmp.anime == figura.id_anime.anime%}
+                                <option value="{{tmp.id_anime}}" selected>{{tmp.anime}}</option>
+                                {%else%}
                                 <option value="{{tmp.id_anime}}">{{tmp.anime}}</option>
+                                {% endif%}
                                 {% endfor %}
                             </select>
                             <label for="anime" class="form-label">Anime</label>
@@ -34,23 +38,27 @@
                         <div class="form-floating mb-3 w-25 mx-auto">
                             <select class="form-select" id="marca" name="marca">
                                 {% for tmp in marcas %}
+                                {% if tmp.marca == figura.id_marca.marca%}
+                                <option value="{{tmp.id_marca}}" selected>{{tmp.marca}}</option>
+                                {%else%}
                                 <option value="{{tmp.id_marca}}">{{tmp.marca}}</option>
+                                {% endif%}
                                 {% endfor %}
                             </select>
                             <label for="marca" class="form-label">Marca</label>
                         </div>
                         <div class="form-floating mb-3 w-25 mx-auto">
-                            <input type="date" class="form-control" id="fecha" name="fecha">
+                            <input type="date" value={{figura.fecha_lanzamiento|date:"Y-m-d"}} class="form-control" id="fecha" name="fecha">
                             <label for="fecha" class="form-label">Fecha Lanzamiento</label>
                         </div>
 
                         <div class="form-floating mb-3 w-25 mx-auto">
-                            <input type= "number" class="form-control" id="precio" name="precio">
+                            <input type= "number" value={{figura.precio}} class="form-control" id="precio" name="precio">
                             <label for="precio" class="form-label">Precio</label>
                         </div>
                         <div class="form-floating mb-3 w-25 mx-auto">
-                            <input type="text" class="form-control" id="tamano" name="tamano">
-                            <label for="tamano" class="form-label">Tamaño</label>
+                            <input type="text" value={{figura.tamano}} class="form-control" id="tamano" name="tamano">
+                            <label for="tamano" class="form-label"> Tamaño</label>
                         </div>
                         {% if mensaje %}
                         <div class="alert alert-success w-50 mx-auto">
@@ -58,7 +66,7 @@
                         </div>
                         {% endif %}
                         <div>
-                            <button type="submit" class="btn btn-success">Agregar Figura</button><br>
+                            <button type="submit" class="btn btn-success">Modificar Figura</button><br>
                             <a href="{% url 'crud_figura'%}"><button type="button"
                                     class="btn btn-primary mt-3">Volver</button></a>
                         </div>
