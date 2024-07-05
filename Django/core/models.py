@@ -26,19 +26,29 @@ class Usuario(models.Model):
 
 
 class Figura(models.Model):
+    id_figura = models.AutoField( db_column="idFigura",editable=False,primary_key=True)
     nombre_figura = models.CharField(max_length=20)
-    anime = models.CharField(max_length=20)
-    marca = models.CharField(max_length=20)
+    id_anime = models.ForeignKey("Anime", on_delete= models.CASCADE , db_column = "idAnime")
+    id_marca = models.ForeignKey("Marca", on_delete= models.CASCADE , db_column = "idMarca")
     fecha_lanzamiento = models.DateField(blank=False, null=False)
     precio=models.IntegerField()
     tamano=models.CharField(max_length=20)
-    id_figura = models.IntegerField( editable=False,primary_key=True)
-    def asignar_numero_secuencia(sender, instance, **kwargs):
-        if not instance.id_figura:
-            ultimo_registro = Figura.objects.last()
-            if ultimo_registro:
-                instance.id_figura = ultimo_registro.id_figura + 1
-            else:
-                instance.id_figura = 1
+
     def __str__(self):
         return str(self.nombre_figura)+" "+ str(self.anime)+ " "+ str(self.id_figura)
+    
+class Anime(models.Model):
+    id_anime= models.AutoField(db_column="idAnime",primary_key=True)
+    anime = models.CharField(max_length=20, blank=False, null=False)
+
+
+    def __str__(self):
+        return str(self.anime)
+
+class Marca(models.Model):
+    id_marca= models.AutoField(db_column="idMarca",primary_key=True)
+    marca = models.CharField(max_length=20, blank=False, null=False)
+
+
+    def __str__(self):
+        return str(self.marca)
