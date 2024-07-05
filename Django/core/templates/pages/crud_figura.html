@@ -17,34 +17,24 @@
             <div class="row">
                 <div class="col-md-8 shadow-lg mx-auto text-center p-3">
                     <h2 class="my-3">Lista Usuarios</h2><br>
-                    {% if request.user.is_authenticated %}
-                    <h3>Bienvenido {{request.user.username}}</h3>
-                    <a href="{% url 'logout' %}">
-                        <button class="btn btn-danger my-3">
-                            Cerrar Sesion
-                        </button>
-                    </a>
-                    {% else%}
-                    <h3>Bienvenido Invitado</h3>
-                    {% endif%}
                     <table class="table table-dark table-hover table-bordered">
                         <thead>
-                            <th>Rut</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
+                            <th>ID Figura</th>
+                            <th>Nombre Figura</th>
+                            <th>precio</th>
                             <th>Modificar</th>
                             <th>Eliminar</th>
                         </thead>
                         <tbody>
-                            {% if usuarios %}
-                            {% for tmp in usuarios%}
+                            {% if figuras %}
+                            {% for tmp in figuras%}
                             <tr>
-                                <td>{{tmp.rut}}</td>
-                                <td>{{tmp.nombre}}</td>
-                                <td>{{tmp.apellido_paterno}}</td>
-                                <td><a href="{% url 'user_findEdit' pk=tmp.rut%}"><button
+                                <td>{{tmp.id_figura}}</td>
+                                <td>{{tmp.nombre_figura}}</td>
+                                <td>{{tmp.precio}}</td>
+                                <td><a href="{% url 'figura_findEdit' pk=tmp.id_figura%}"><button
                                             class="btn btn-warning">Modificar</button></a></td>
-                                <td><a href="{% url 'user_del' pk=tmp.rut%}"><button
+                                <td><a href="{% url 'figura_del' pk=tmp.id_figura%}"><button
                                             class="btn btn-danger">Eliminar</button></a></td>
                             </tr>
                             {% endfor%}
@@ -56,18 +46,19 @@
                         {{mensaje}}
                     </div>
                     {% endif%}
-                    <a href="{% url 'user_add' %}">
+                    <a href="{% url 'figura_add' %}">
                         <button class="btn btn-primary">Agregar Registro</button>
                     </a>
-                    <a href="{% url 'crud_genero' %}">
+                    <a href="{% url 'crud' %}">
                         <button class="btn btn-info">
-                            Ver generos
+                            Volver
                         </button>
                     </a>
-                    <a href="{% url 'crud_figura' %}">
-                        <button class="btn btn-bg-warning">
-                            Ver figuras
-                        </button>
+                    <a href="{% url 'crud_anime' %}">
+                        <button class="btn btn-primary">Ver Anime</button>
+                    </a>
+                    <a href="{% url 'crud_marca' %}">
+                        <button class="btn btn-primary">Ver Marca</button>
                     </a>
                 </div>
             </div>

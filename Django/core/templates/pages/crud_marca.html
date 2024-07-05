@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mantenedor</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+
+<body>
+    {% include 'base/header.html'%}
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 shadow-lg mx-auto text-center p-3">
+                    <table class="table table-dark table-hover table-bordered">
+                        <thead>
+                            <th>ID Marca</th>
+                            <th>Marca</th>
+                            <th>Modificar</th>
+                            <th>Eliminar</th>
+                        </thead>
+                        <tbody>
+                            {% if marcas%}
+                            {% for tmp in marcas%}
+                            <tr>
+                                <td>{{tmp.id_marca}}</td>
+                                <td>{{tmp.marca}}</td>
+                                <td><a href="{% url 'marca_edit' pk=tmp.id_marca %}"><button
+                                            class="btn btn-warning">Modificar</button></a></td>
+                                <td><a href="{% url 'marca_del' pk=tmp.id_marca %}"><button
+                                            class="btn btn-danger">Eliminar</button></a></td>
+                            </tr>
+                            {% endfor%}
+                            {% endif%}
+                        </tbody>
+                    </table>
+                    {% if mensaje%}
+                    <div class="alert alert-danger w-50 mx-auto text-center">
+                        {{mensaje}}
+                    </div>
+                    {% endif%}
+                    <a href="{% url 'marca_add' %}"><button class="btn btn-primary">Agregar Marca</button></a>
+                    <a href="{% url 'crud'%}"><button class="btn btn-secondary">Volver</button></a>
+                </div>
+            </div>
+        </div>
+    </main>
+    {% include 'base/footer.html'%}
+
+    <script src='{% static 'js/bootstrap.bundle.min.js' %}'></script>
+</body>
+
+</html>
