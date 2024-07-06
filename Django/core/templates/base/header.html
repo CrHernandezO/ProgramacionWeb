@@ -29,7 +29,7 @@
             <a class="nav-link text-white" href="{% url 'catalogo'%}">Catalogo</a>
             </li>
             <li class="nav-item ">
-            <a class="nav-link text-white" href="{% url 'iniciosesion'%}">Iniciar Sesion</a>
+                <a class="nav-link text-white" href="{% url 'iniciocliente' %}">Iniciar Sesión</a>
             </li>
             <li class="nav-item dropdown ">
             <a
@@ -45,6 +45,11 @@
             <li><a class="dropdown-item text-white" href="{% url 'somos'%}">Quienes somos?</a></li>
             <li><a class="dropdown-item text-white" href="{% url 'preguntasF'%}">Preguntas Frecuentes</a></li>
             </ul>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'carrito' %}">
+                    <i class="fas fa-shopping-cart"></i> Carrito
+                </a>
+            </li>
         </ul>
         </div>
     </div>

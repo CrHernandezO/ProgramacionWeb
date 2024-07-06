@@ -60,6 +60,16 @@
                             <input type="text" value={{figura.tamano}} class="form-control" id="tamano" name="tamano">
                             <label for="tamano" class="form-label"> Tamaño</label>
                         </div>
+                        {% if figura.imagen %}
+                        <div class="form-floating mb-3 w-25 mx-auto">
+                            <img src="{{ figura.imagen.url }}" class="img-thumbnail" alt="{{ figura.nombre_figura }}">
+                            <label for="imagen" class="form-label">Imagen Actual</label>
+                        </div>
+                        {% endif %}
+                        <div class="form-floating mb-3 w-25 mx-auto">
+                            <input type="file" class="form-control" id="imagen" name="imagen">
+                            <label for="imagen" class="form-label">Cambiar Imagen</label>
+                        </div>
                         {% if mensaje %}
                         <div class="alert alert-success w-50 mx-auto">
                             {{mensaje}}

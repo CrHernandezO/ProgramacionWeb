@@ -1,8 +1,10 @@
-from django.shortcuts import render
-from .models import Genero, Usuario, Anime,Marca,Figura
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Genero, Usuario, Anime,Marca,Figura,CarritoItem
 from .forms import GeneroForm,UsuarioForm,AnimeForm,MarcaForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.utils.translation import gettext as _
 
 # Create your views here.
 def index(request):
@@ -12,14 +14,127 @@ def index(request):
     return render(request,"pages/index.html",context)
 
 
+
+def registro_usuario(request):
+    if request.method != "POST":
+            generos = Genero.objects.all()
+            context = {
+                "generos": generos,
+            }
+            return render(request, "pages/user_add.html", context)
+    else:
+        rut = request.POST["rut"]
+        nombre = request.POST["nombre"]
+        appPaterno = request.POST["appPaterno"]
+        appMaterno = request.POST["appMaterno"]
+        fechaNac = request.POST["fecha"]
+        genero = request.POST["genero"]
+        telefono = request.POST["telefono"]
+        correo = request.POST["correo"]
+        password = request.POST["password"]
+        direccion = request.POST["direccion"]
+
+        objGenero = Genero.objects.get(id_genero=genero)
+
+        obj = Usuario.objects.create(
+            rut=rut,
+            nombre=nombre,
+            apellido_paterno=appPaterno,
+            apellido_materno=appMaterno,
+            fecha_nacimiento=fechaNac,
+            id_genero=objGenero,
+            telefono=telefono,
+            email=correo,
+            password=password,
+            direccion=direccion,
+        )
+        obj.save()
+        context = {
+            "mensaje": "Registro Exitoso",
+        }
+        return render(request, "pages/index.html", context)
+
+    # Si es GET o si hay algún error, renderiza el formulario de registro
+    generos = Genero.objects.all()
+    context = {
+        'generos': generos,
+    }
+    return render(request, 'pages/registro.html', context)
+
+
+
+@login_required
 def catalogo(request):
-    context={}
-    return render(request,"pages/catalogo.html",context)
+    figuras = Figura.objects.all()
+    context = {
+        'figuras': figuras,
+    }
+    return render(request, 'pages/catalogo.html',context)
 
-def iniciosesion(request):
+@login_required
+def agregar_al_carrito(request, figura_id):
+    figura = get_object_or_404(Figura, id_figura=figura_id)
+    usuario = get_object_or_404(Usuario, rut=request.user.username)
+    carrito_item, created = CarritoItem.objects.get_or_create(user=usuario, figura=figura)
+    if not created:
+        carrito_item.cantidad += 1
+        carrito_item.save()
+    return redirect('carrito')
+@login_required
+def restar_del_carrito(request, item_id):
+    carrito_item = get_object_or_404(CarritoItem, id=item_id)
+    if carrito_item.cantidad > 1:
+        carrito_item.cantidad -= 1
+        carrito_item.save()
+    else:
+        carrito_item.delete()  # Elimina el item si la cantidad es 1
+    return redirect('carrito')
+@login_required
+def eliminar_del_carrito(request, item_id):
+    carrito_item = get_object_or_404(CarritoItem, id=item_id)
+    carrito_item.delete()
+    return redirect('carrito')
 
-    context={}
-    return render(request,"pages/iniciosesion.html",context)
+@login_required
+def carrito(request):
+    usuario = get_object_or_404(Usuario, rut=request.user.username)
+    carrito_items = CarritoItem.objects.filter(user=usuario)
+    
+    # Calcular el subtotal para cada item del carrito
+    for item in carrito_items:
+        item.subtotal = item.figura.precio * item.cantidad
+    
+    total = sum(item.subtotal for item in carrito_items)
+    
+    context = {
+        'carrito_items': carrito_items,
+        'total': total,
+    }
+    return render(request, 'base/carrito.html', context)
+
+def iniciocliente(request):
+    if request.method == 'POST':
+        rut = request.POST.get('rut')
+        password = request.POST.get('pass')
+
+        try:
+            usuario = Usuario.objects.get(rut=rut)
+
+            # Verificar la contraseña (aquí debes implementar tu lógica de autenticación)
+            if password == usuario.password:  # Ejemplo básico, deberías usar hash y verificación segura
+                # Autenticación exitosa, redirigir o realizar alguna acción
+                # Por ejemplo, puedes redirigir a la página de perfil del usuario
+                return redirect('perfil_cliente')  # Reemplaza 'perfil_cliente' por la URL correspondiente
+
+            else:
+                # Contraseña incorrecta
+                messages.error(request, 'Contraseña incorrecta. Inténtelo de nuevo.')
+
+        except Usuario.DoesNotExist:
+            # Usuario no encontrado
+            messages.error(request, 'Usuario con RUT especificado no encontrado.')
+
+    return render(request, 'pages/iniciocliente.html')
 
 def registro(request):
 
@@ -68,7 +183,6 @@ def user_add(request):
         correo = request.POST["correo"]
         password = request.POST["password"]
         direccion = request.POST["direccion"]
-        activo = True
 
         objGenero = Genero.objects.get(id_genero=genero)
 
@@ -79,11 +193,10 @@ def user_add(request):
             apellido_materno=appMaterno,
             fecha_nacimiento=fechaNac,
             id_genero=objGenero,
-            telefono=telefono,
-            email=correo,
             password=password,
+            email=correo,
+            telefono=telefono,
             direccion=direccion,
-            activo=activo,
         )
         obj.save()
         context = {
@@ -150,7 +263,6 @@ def user_update(request):
         correo = request.POST["correo"]
         password = request.POST["password"]
         direccion = request.POST["direccion"]
-        activo = True
 
         """ Obtengo genero desde la BDD para modificar """
         objGenero = Genero.objects.get(id_genero=genero)
@@ -168,7 +280,6 @@ def user_update(request):
             email=correo,
             password=password,
             direccion=direccion,
-            activo=activo,
         )
         obj.save()
 
@@ -189,6 +300,7 @@ def crud_figura(request):
     return render(request, "pages/crud_figura.html", context)
 
 @login_required
+
 def figura_add(request):
     if request.method != "POST":
         animes = Anime.objects.all()
@@ -197,7 +309,6 @@ def figura_add(request):
         context = {
             "animes": animes,
             "marcas": marcas,
-
         }
         return render(request, "pages/figura_add.html", context)
     else:
@@ -207,10 +318,10 @@ def figura_add(request):
         fecha_lanzamiento = request.POST["fecha"]
         precio = request.POST["precio"]
         tamano = request.POST["tamano"]
-
+        imagen = request.FILES["imagen"]  # Captura el archivo de imagen enviado en el formulario
 
         objAnime = Anime.objects.get(id_anime=anime)
-        objMarca= Marca.objects.get(id_marca=marca)
+        objMarca = Marca.objects.get(id_marca=marca)
 
         obj = Figura.objects.create(
             nombre_figura=nombre_figura,
@@ -219,14 +330,14 @@ def figura_add(request):
             fecha_lanzamiento=fecha_lanzamiento,
             precio=precio,
             tamano=tamano,
- 
+            imagen=imagen,  # Asigna el archivo de imagen al campo imagen del modelo Figura
         )
         obj.save()
+
         context = {
             "mensaje": "Registro Exitoso",
         }
         return render(request, "pages/figura_add.html", context)
-
 @login_required
 def figura_del(request, pk):
     try:

@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-8 shadow-lg mx-auto text-center p-3">
                     <h2 class="my-3">Formulario de registro</h2>
-                    <form action="{% url 'figura_add' %}" method="POST" class="form-floating">
+                    <form action="{% url 'figura_add' %}" method="POST" class="form-floating" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-floating mb-3 w-25 mx-auto">
                             <input type="text" class="form-control" id="nombre" name="nombre">
@@ -51,6 +51,10 @@
                         <div class="form-floating mb-3 w-25 mx-auto">
                             <input type="text" class="form-control" id="tamano" name="tamano">
                             <label for="tamano" class="form-label">Tamaño</label>
+                        </div>
+                        <div class="form-floating mb-3 w-25 mx-auto">
+                            <input type="file" class="form-control" id="imagen" name="imagen">
+                            <label for="imagen" class="form-label">Imagen</label>
                         </div>
                         {% if mensaje %}
                         <div class="alert alert-success w-50 mx-auto">
