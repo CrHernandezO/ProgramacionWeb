@@ -40,9 +40,9 @@
           <td>
             <form action="{% url 'restar_del_carrito' item.id %}" method="post">
               {% csrf_token %}
-              <button type="submit" name="operacion" value="restar">-</button>
+              <button type="submit"  class = "w-25 text-black" name="operacion" value="restar"> - Restar</button>
             </form>
-            <a href="{% url 'eliminar_del_carrito' item.id %}">Eliminar</a>
+            <a href="{% url 'eliminar_del_carrito' item.id %}"  class = "text-black">Eliminar</a>
           </td>
         </tr>
       {% endfor %}

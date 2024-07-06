@@ -12,16 +12,29 @@
 <body id = "navssss">
     {% include 'base/header.html' %} 
     <main>
+      <div class="col-md-8 shadow mx-auto text-center text-black bg-black bg-opacity-50 p-3">
+
         <section class="banner" id="ban">
             <h1>
-                Bienvenidos   (PROFE TIENE QUE CREAR UN USUARIO DESDE ADMIN).
+                Bienvenidos a TiendaCoffig!!
             </h1>
-            <h2>
-                Tienda de Duoc UC de figuras de anime Shonen
-            </h2>
-            <a href="{% url 'login'%}"  class="banner-btn">admin</a>
+            <h5>               
+                (PROFE TIENE QUE CREAR UN USUARIO DESDE ADMIN y ahi lo dejara acceder al carrito de compras, al login de admin lo dejara entrar con el  alias happy y contraseña happy)
+                tiene que crear un usuario llamado happy en el admin ya estara creado pero por si quiere botar la base de datos creada
+                if username=="happy" and password=="happy":
+                es por esa linea no lo supe programar muy bien....  y tiene que estar iniciado sesion Gracias UNA VEZ INICIADO APARECERAN MAS DETALLES!!!
+            </h5>
+            {%if request.user.is_authenticated%}
+            <h1>
+              Bienvenidos administrador!!
+            </h1>
+            <a href="{% url 'crud'%}"  class="banner-btn">CRUD PARA AÑADIR</a>
+            {%else%}
+            <a href="{% url 'login'%}"  class="banner-btn"> Iniciar sesion admin</a>
+
+            {%endif%}
           </section>
-        
+        </div>
       <div class="w-100">
         <div id="carouselExampleCaptions" class="carousel slide w-50 mx-auto">
           <div class="carousel-indicators">

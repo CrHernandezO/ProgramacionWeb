@@ -63,7 +63,7 @@ def registro_usuario(request):
 
 
 
-@login_required
+
 def catalogo(request):
     figuras = Figura.objects.all()
     context = {
@@ -75,11 +75,13 @@ def catalogo(request):
 def agregar_al_carrito(request, figura_id):
     figura = get_object_or_404(Figura, id_figura=figura_id)
     usuario = get_object_or_404(Usuario, rut=request.user.username)
+    print(f"Usuario encontrado: {usuario}")  # Debugging: Verifica si el usuario se encuentra correctamente
     carrito_item, created = CarritoItem.objects.get_or_create(user=usuario, figura=figura)
     if not created:
         carrito_item.cantidad += 1
         carrito_item.save()
     return redirect('carrito')
+
 @login_required
 def restar_del_carrito(request, item_id):
     carrito_item = get_object_or_404(CarritoItem, id=item_id)
