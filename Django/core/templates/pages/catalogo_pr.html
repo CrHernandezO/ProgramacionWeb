@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogo</title>
+    {% load static%}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/funciones.js' %}"></script>
+</head>
+<body id="navssss">
+  {% include 'base/header.html' %} 
+  <main>
+    <div class="row row-cols-1 row-cols-md-3 g-4 mx-auto w-50 my-2">
+      <div class="col">
+        <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal" id="letras">
+          <img src="{% static 'img/kaorifig.jpg'%}"  class="card_img card-img-top" height="299" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">Kaori Miyazono</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal" id="letras">
+          <img src="{% static 'img/kouseifig.jpg'%}"  class="card_img card-img-top" height="292" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">Kousei Arima</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal" id="letras">
+          <img src="{% static 'img/takeshi.gif'%}"  class="card_img card-img-top" height="300" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">Takeshi Aiza <title></title>
+            </h5>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal" id="letras">
+          <img src="{% static 'img/jinwoo.jpg'%}"  class="card_img card-img-top" height="299" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">Sung Jinwoo</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal" id="letras">
+          <img src="{% static 'img/hae.jpg'%}"  class="card_img card-img-top" height="292" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">Chae Hae</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal" id="letras">
+          <img src="{% static 'img/igris.jpg'%}"  class="card_img card-img-top" height="300" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">Igris <title></title>
+            </h5>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal" id="letras2">
+          <img src="{% static 'img/kazuma.jpg'%}"  class="card_img card-img-top" height="299" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">Kazuma</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal" id="letras">
+          <img src="{% static 'img/megumi.jpeg'%}"  class="card_img card-img-top" height="292" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">Megumi</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card" data-bs-toggle="modal" data-bs-target="#exampleModal" id="letras">
+          <img src="{% static 'img/aqua.jpg'%}"  class="card_img card-img-top" height="300" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">Aqua <title></title>
+            </h5>
+          </div>
+        </div>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" id="letras"
+        aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5 d-block mx-auto" id="exampleModalLabel">
+                Figura Kaori
+              </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" id="letras" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <h1 class="h1 text-center pb-3">Kaori Miyazono</h1>
+              <img src="{% static 'img/kaorifig.jpg'%}"  alt="" class="img-fluid rounded-2 mx-auto" />
+              <div class="row p-5 fs-4">
+                <ul>
+                  <li>Marca: TAITO</li>
+                  <li>Anime: Shigatsu wa Kimi no Uso</li>
+                  <li>Nombre: Kaori Miyazono</li>
+                  <li>Fecha de lanzamiento: Agosto/2023</li>
+                  <li>Tamaño: 18 cms aprox</li>
+                </ul>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <a href="{% url 'kaoricompra'%}">
+                <button type="button" class="btn btn-primary">Comprar</button>
+              </a>
+              <button type="button" class="btn btn-secondary" id="letras" data-bs-dismiss="modal">
+                Cerrar
+              </button>
+
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" id="letras"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5 d-block mx-auto" id="exampleModalLabel">
+                        Figura Kaori
+                      </h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" id="letras"
+                        aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <h1 class="h1 text-center pb-3">Kaori Miyazono</h1>
+                      <img src="{% static 'img/kaorifig.jpg'%}"  alt="" class="img-fluid rounded-2" />
+                      <div class="row p-5 fs-4">
+                        <ul>
+                          <li>Marca: TAITO</li>
+                          <li>Anime: Shigatsu wa Kimi no Uso</li>
+                          <li>Nombre: Kaori Miyazono</li>
+                          <li>Fecha de lanzamiento: Agosto/2023</li>
+                          <li>Tamaño: 18 cms aprox</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <a href="{% url 'iniciosesion'%}">
+                        <button type="button" class="btn btn-primary">
+                          Comprar
+                        </button>
+                      </a>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cerrar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  {% include 'base/footer.html' %} 
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>
