@@ -2,7 +2,9 @@ from django.urls import path
 from core import views
 from django.conf import settings
 from django.conf.urls.static import static
-urlpatterns=[   path("", views.index, name="index"),
+
+urlpatterns = [
+    path("", views.index, name="index"),
     path('catalogo/', views.catalogo, name='catalogo'),
     path('agregar_al_carrito/<int:figura_id>/', views.agregar_al_carrito, name='agregar_al_carrito'),
     path('carrito/', views.carrito, name='carrito'),
@@ -21,10 +23,10 @@ urlpatterns=[   path("", views.index, name="index"),
     path("figura_del/<str:pk>/", views.figura_del, name="figura_del"),
     path("figura_findEdit/<str:pk>/", views.figura_findEdit, name="figura_findEdit"),
     path("figura_update/", views.figura_update, name="figura_update"),
-    path("crud_genero/", views.crud_genero, name="crud_genero"),
-    path("genero_add/", views.genero_add, name="genero_add"),
-    path("genero_del/<str:pk>/", views.genero_del, name="genero_del"),
-    path("genero_edit/<str:pk>/", views.genero_edit, name="genero_edit"),
+    path("crud_rol/", views.crud_rol, name="crud_rol"),
+    path("rol_add/", views.rol_add, name="rol_add"),
+    path("rol_del/<str:pk>/", views.rol_del, name="rol_del"),
+    path("rol_edit/<str:pk>/", views.rol_edit, name="rol_edit"),
     path("crud_anime/", views.crud_anime, name="crud_anime"),
     path("anime_add/", views.anime_add, name="anime_add"),
     path("anime_del/<str:pk>/", views.anime_del, name="anime_del"),
@@ -37,6 +39,6 @@ urlpatterns=[   path("", views.index, name="index"),
     path("logout/", views.desconectar, name="logout"),
     path('eliminar_del_carrito/<int:item_id>/', views.eliminar_del_carrito, name='eliminar_del_carrito'),
     path('restar_del_carrito/<int:item_id>/', views.restar_del_carrito, name='restar_del_carrito'),
-
 ]
+
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

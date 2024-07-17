@@ -29,7 +29,7 @@
                     {% endif%}
                     <table class="table table-dark table-hover table-bordered">
                         <thead>
-                            <th>Rut</th>
+                            <th>Correo</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Modificar</th>
@@ -39,12 +39,12 @@
                             {% if usuarios %}
                             {% for tmp in usuarios%}
                             <tr>
-                                <td>{{tmp.rut}}</td>
+                                <td>{{tmp.email}}</td>
                                 <td>{{tmp.nombre}}</td>
                                 <td>{{tmp.apellido_paterno}}</td>
-                                <td><a href="{% url 'user_findEdit' pk=tmp.rut%}"><button
+                                <td><a href="{% url 'user_findEdit' pk=tmp.email%}"><button
                                             class="btn btn-warning">Modificar</button></a></td>
-                                <td><a href="{% url 'user_del' pk=tmp.rut%}"><button
+                                <td><a href="{% url 'user_del' pk=tmp.email%}"><button
                                             class="btn btn-danger">Eliminar</button></a></td>
                             </tr>
                             {% endfor%}
@@ -59,9 +59,9 @@
                     <a href="{% url 'user_add' %}">
                         <button class="btn btn-primary">Agregar Registro</button>
                     </a>
-                    <a href="{% url 'crud_genero' %}">
+                    <a href="{% url 'crud_rol' %}">
                         <button class="btn btn-info">
-                            Ver generos
+                            Ver rols
                         </button>
                     </a>
                     <a href="{% url 'crud_figura' %}">

@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Genero, Usuario, Anime,Marca,Figura,CarritoItem
-from .forms import GeneroForm,UsuarioForm,AnimeForm,MarcaForm
+from .models import Rol, Usuario, Anime,Marca,Figura,CarritoItem
+from .forms import RolForm,UsuarioForm,AnimeForm,MarcaForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils.translation import gettext as _
+from django.contrib.auth.hashers import check_password
 
 # Create your views here.
 def index(request):
@@ -13,38 +14,32 @@ def index(request):
     }
     return render(request,"pages/index.html",context)
 
-
-
 def registro_usuario(request):
     if request.method != "POST":
-            generos = Genero.objects.all()
+            rols = Rol.objects.all()
             context = {
-                "generos": generos,
+                "rols": rols,
             }
             return render(request, "pages/user_add.html", context)
     else:
-        rut = request.POST["rut"]
+        username = request.POST["username"]
         nombre = request.POST["nombre"]
         appPaterno = request.POST["appPaterno"]
         appMaterno = request.POST["appMaterno"]
-        fechaNac = request.POST["fecha"]
-        genero = request.POST["genero"]
+        rol = request.POST["rol"]
         telefono = request.POST["telefono"]
-        correo = request.POST["correo"]
         password = request.POST["password"]
         direccion = request.POST["direccion"]
 
-        objGenero = Genero.objects.get(id_genero=genero)
+        objRol = Rol.objects.get(id_rol=rol)
 
         obj = Usuario.objects.create(
-            rut=rut,
+            email=username,
             nombre=nombre,
             apellido_paterno=appPaterno,
             apellido_materno=appMaterno,
-            fecha_nacimiento=fechaNac,
-            id_genero=objGenero,
+            id_rol=objRol,
             telefono=telefono,
-            email=correo,
             password=password,
             direccion=direccion,
         )
@@ -55,9 +50,9 @@ def registro_usuario(request):
         return render(request, "pages/index.html", context)
 
     # Si es GET o si hay algún error, renderiza el formulario de registro
-    generos = Genero.objects.all()
+    rols = Rol.objects.all()
     context = {
-        'generos': generos,
+        'rols': rols,
     }
     return render(request, 'pages/registro.html', context)
 
@@ -71,15 +66,19 @@ def catalogo(request):
     }
     return render(request, 'pages/catalogo.html',context)
 
+
 @login_required
 def agregar_al_carrito(request, figura_id):
     figura = get_object_or_404(Figura, id_figura=figura_id)
-    usuario = get_object_or_404(Usuario, rut=request.user.username)
-    print(f"Usuario encontrado: {usuario}")  # Debugging: Verifica si el usuario se encuentra correctamente
+    usuario = request.user  # Obtener el usuario autenticado actualmente
+    print(f"Usuario encontrado: {usuario}")  # Para debugging: verifica si el usuario se encuentra correctamente
+
+    # No necesitas buscar el usuario de nuevo si ya está autenticado
     carrito_item, created = CarritoItem.objects.get_or_create(user=usuario, figura=figura)
     if not created:
         carrito_item.cantidad += 1
         carrito_item.save()
+    
     return redirect('carrito')
 
 @login_required
@@ -99,7 +98,7 @@ def eliminar_del_carrito(request, item_id):
 
 @login_required
 def carrito(request):
-    usuario = get_object_or_404(Usuario, rut=request.user.username)
+    usuario = get_object_or_404(Usuario, email=request.user.username)
     carrito_items = CarritoItem.objects.filter(user=usuario)
     
     # Calcular el subtotal para cada item del carrito
@@ -116,11 +115,11 @@ def carrito(request):
 
 def iniciocliente(request):
     if request.method == 'POST':
-        rut = request.POST.get('rut')
+        username = request.POST.get('correo')
         password = request.POST.get('pass')
 
         try:
-            usuario = Usuario.objects.get(rut=rut)
+            usuario = Usuario.objects.get(email=username)
 
             # Verificar la contraseña (aquí debes implementar tu lógica de autenticación)
             if password == usuario.password:  # Ejemplo básico, deberías usar hash y verificación segura
@@ -169,34 +168,30 @@ def crud(request):
 @login_required
 def user_add(request):
     if request.method != "POST":
-        generos = Genero.objects.all()
+        rols = Rol.objects.all()
         context = {
-            "generos": generos,
+            "rols": rols,
         }
         return render(request, "pages/user_add.html", context)
     else:
-        rut = request.POST["rut"]
+        username = request.POST["username"]
         nombre = request.POST["nombre"]
         appPaterno = request.POST["appPaterno"]
         appMaterno = request.POST["appMaterno"]
-        fechaNac = request.POST["fecha"]
-        genero = request.POST["genero"]
+        rol = request.POST["rol"]
         telefono = request.POST["telefono"]
-        correo = request.POST["correo"]
         password = request.POST["password"]
         direccion = request.POST["direccion"]
 
-        objGenero = Genero.objects.get(id_genero=genero)
+        objRol = Rol.objects.get(id_rol=rol)
 
         obj = Usuario.objects.create(
-            rut=rut,
+            email=username,
             nombre=nombre,
             apellido_paterno=appPaterno,
             apellido_materno=appMaterno,
-            fecha_nacimiento=fechaNac,
-            id_genero=objGenero,
+            id_rol=objRol,
             password=password,
-            email=correo,
             telefono=telefono,
             direccion=direccion,
         )
@@ -209,7 +204,7 @@ def user_add(request):
 @login_required
 def user_del(request, pk):
     try:
-        usuario = Usuario.objects.get(rut=pk)
+        usuario = Usuario.objects.get(correo=pk)
         usuario.delete()
 
         usuarios = Usuario.objects.all()
@@ -232,12 +227,12 @@ def user_findEdit(request,pk):
             objects.get() = Obtener datos con filtro
             objects.all() = Obtener todos
         """
-        usuario = Usuario.objects.get(rut=pk)
-        generos = Genero.objects.all()
+        usuario = Usuario.objects.get(email=pk)
+        rols = Rol.objects.all()
 
         context={
             "usuario":usuario,
-            "generos":generos,
+            "rols":rols,
         }
         return render(request,"pages/user_update.html",context)
     else:
@@ -255,40 +250,36 @@ def user_update(request):
             Identificamos
             Asignamos nombre 
         """
-        rut = request.POST["rut"]
+        username = request.POST["username"]
         nombre = request.POST["nombre"]
         appPaterno = request.POST["appPaterno"]
         appMaterno = request.POST["appMaterno"]
-        fechaNac = request.POST["fecha"]
-        genero = request.POST["genero"]
+        rol = request.POST["rol"]
         telefono = request.POST["telefono"]
-        correo = request.POST["correo"]
         password = request.POST["password"]
         direccion = request.POST["direccion"]
 
-        """ Obtengo genero desde la BDD para modificar """
-        objGenero = Genero.objects.get(id_genero=genero)
+        """ Obtengo rol desde la BDD para modificar """
+        objRol = Rol.objects.get(id_rol=rol)
 
-        """ Genero la instancia """
+        """ Rol la instancia """
 
         obj = Usuario(
-            rut=rut,
+            email=username,
             nombre=nombre,
             apellido_paterno=appPaterno,
             apellido_materno=appMaterno,
-            fecha_nacimiento=fechaNac,
-            id_genero=objGenero,
+            id_rol=objRol,
             telefono=telefono,
-            email=correo,
             password=password,
             direccion=direccion,
         )
         obj.save()
 
-        generos = Genero.objects.all()
+        rols = Rol.objects.all()
         context = {
             "mensaje": "Modificado con Exito",
-            "generos":generos,
+            "rols":rols,
             "usuario":obj,
         }
         return render(request, "pages/user_update.html", context)
@@ -429,59 +420,59 @@ def figura_update(request):
 
 
 @login_required
-def crud_genero(request):
-    generos = Genero.objects.all()
+def crud_rol(request):
+    rols = Rol.objects.all()
 
     context={
-        "generos":generos,
+        "rols":rols,
     }
-    return render(request,"pages/crud_genero.html",context)
+    return render(request,"pages/crud_rol.html",context)
 @login_required
-def genero_add(request):
-    formGenero = GeneroForm()
+def rol_add(request):
+    formRol = RolForm()
     formUsuario = UsuarioForm()
     if request.method=="POST":
-        nuevo = GeneroForm(request.POST)
+        nuevo = RolForm(request.POST)
         if nuevo.is_valid():
             nuevo.save()
 
             context={
                 "mensaje":"Agregado con exito",
-                "form":formGenero
+                "form":formRol
             }
-            return render(request,"pages/genero_add.html",context)
+            return render(request,"pages/rol_add.html",context)
     else:
         context = {
-            "form":formGenero,
+            "form":formRol,
             "form2":formUsuario
         }
-        return render(request,"pages/genero_add.html",context)
+        return render(request,"pages/rol_add.html",context)
 @login_required
-def genero_del(request,pk):
+def rol_del(request,pk):
     try:
-        genero = Genero.objects.get(id_genero=pk)
-        genero.delete()
+        rol = Rol.objects.get(id_rol=pk)
+        rol.delete()
 
-        generos = Genero.objects.all()
+        rols = Rol.objects.all()
         context={
             "mensaje":"Registro eliminado exitosamente",
-            "generos":generos
+            "rols":rols
         }
-        return render(request,"pages/crud_genero.html",context)
+        return render(request,"pages/crud_rol.html",context)
     except:
-        generos = Genero.objects.all()
+        rols = Rol.objects.all()
         context={
-            "mensaje":"Error, Genero no encontrado...",
-            "generos":generos
+            "mensaje":"Error, Rol no encontrado...",
+            "rols":rols
         }
-        return render(request,"pages/crud_genero.html",context)
+        return render(request,"pages/crud_rol.html",context)
 @login_required
-def genero_edit(request,pk):
+def rol_edit(request,pk):
     if pk!="":
-        genero = Genero.objects.get(id_genero=pk)
-        form = GeneroForm(instance=genero)
+        rol = Rol.objects.get(id_rol=pk)
+        form = RolForm(instance=rol)
         if request.method=="POST":
-            nuevo = GeneroForm(request.POST,instance=genero)
+            nuevo = RolForm(request.POST,instance=rol)
 
             if nuevo.is_valid():
                 nuevo.save()
@@ -490,19 +481,19 @@ def genero_edit(request,pk):
                     "mensaje":"Modificado con exito",
                     "form":nuevo
                 }
-                return render(request,"pages/genero_edit.html",context)
+                return render(request,"pages/rol_edit.html",context)
         else:
             context={
                 "form":form,
             }
-            return render(request,"pages/genero_edit.html",context)
+            return render(request,"pages/rol_edit.html",context)
     else:
-        generos = Genero.objects.all()
+        rols = Rol.objects.all()
         context={
-            "mensaje":"Error, genero no encontrado",
-            "generos":generos
+            "mensaje":"Error, rol no encontrado",
+            "rols":rols
         }
-        return render(request,"pages/crud_genero.html",context)
+        return render(request,"pages/crud_rol.html",context)
 @login_required
 def crud_anime(request):
     animes = Anime.objects.all()
@@ -656,58 +647,57 @@ def marca_edit(request,pk):
         return render(request,"pages/crud_marca.html",context)
 @login_required
 def loginSession(request):
-    if request.method=="POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
-        if username=="happy" and password=="happy":
-            request.session["user"] = username
-            usuarios = Usuario.objects.all()
-            context = {
-                "usuarios":usuarios,
-            }
-            return render(request,"pages/crud.html",context)
+    if request.method == "POST":
+        correo = request.POST.get("username")
+        password = request.POST.get("password")
+        
+        try:
+            usuario = Usuario.objects.get(email=correo)
+        except Usuario.DoesNotExist:
+            usuario = None
+        
+        if usuario and check_password(password, usuario.password):
+            request.session["user"] = usuario.email  # Guarda el email en la sesión
+            return redirect('crud')  # Redirige a la vista CRUD (debes definir 'crud' en tus URLs)
         else:
             context = {
-                "mensaje":"Usuario o contraseña incorrecta",
-                "design":"alert alert-danger w-50 mx-auto text-center",
+                "mensaje": "Usuario o contraseña incorrecta",
+                "design": "alert alert-danger w-50 mx-auto text-center",
             }
-            return render(request,"pages/login.html",context)
+            return render(request, "pages/login.html", context)
     else:
-        context = {
-
-        }
-        return render(request,"pages/login.html",context)
+        context = {}
+        return render(request, "pages/login.html", context)
 
 def conectar(request):
     if request.method=="POST":
-        username = request.POST["username"]
+        correo = request.POST["username"]
         password = request.POST["password"]
-        user = authenticate(request,username=username,password=password)
+        user = authenticate(request, username=correo, password=password)
+        
         if user is not None:
-            login(request,user)
+            login(request, user)
             usuarios = Usuario.objects.all()
             context = {
-                "usuarios":usuarios,
+                "usuarios": usuarios,
             }
-            return render(request,"pages/crud.html",context)
+            return render(request, "pages/crud.html", context)
         else:
             context = {
-                "mensaje":"Usuario o contraseña incorrecta",
-                "design":"alert alert-danger w-50 mx-auto text-center",
+                "mensaje": "Usuario o contraseña incorrecta",
+                "design": "alert alert-danger w-50 mx-auto text-center",
             }
-            return render(request,"pages/login.html",context)
+            return render(request, "pages/login.html", context)
     else:
-        context = {
+        context = {}
+        return render(request, "pages/login.html", context)
 
-        }
-        return render(request,"pages/login.html",context)
-
-def desconectar(request):   
+def desconectar(request):
     if request.user.is_authenticated:
         logout(request)
     
     context = {
-        "mensaje":"Desconectado con exito",
-        "design":"alert alert-success w-50 mx-auto text-center",
+        "mensaje": "Desconectado con éxito",
+        "design": "alert alert-success w-50 mx-auto text-center",
     }
-    return render(request,"pages/login.html",context)
+    return render(request, "pages/login.html", context)

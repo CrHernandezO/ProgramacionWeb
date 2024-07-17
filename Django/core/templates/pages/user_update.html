@@ -19,9 +19,9 @@
                     <h2 class="my-3">Formulario de Modificacion</h2>
                     <form action="{% url 'user_update' %}" method="POST" class="form-floating">
                         {% csrf_token %}
-                        <div class="form-floating mb-3 w-50 mx-auto">
-                            <input type="text" value={{usuario.rut}} class="form-control" id="rut" name="rut" readonly>
-                            <label for="rut" class="form-label">Rut</label>
+                        <div class="form-floating mb-3 w-25 mx-auto">
+                            <input type="email" value={{usuario.email}}  class="form-control" id="username" name="username">
+                            <label for="username" class="form-label">Correo</label>
                         </div>
                         <div class="form-floating mb-3 w-50 mx-auto">
                             <input type="text" value={{usuario.nombre}} class="form-control" id="nombre" name="nombre">
@@ -43,21 +43,18 @@
                             <label for="fecha" class="form-label">Fecha</label>
                         </div>
                         <div class="form-floating mb-3 w-50 mx-auto">
-                            <select class="form-select" id="genero" name="genero">
-                                {% for tmp in generos %}
-                                {% if tmp.genero == usuario.id_genero.genero%}
-                                <option value="{{tmp.id_genero}}" selected>{{tmp.genero}}</option>
+                            <select class="form-select" id="rol" name="rol">
+                                {% for tmp in rols %}
+                                {% if tmp.rol == usuario.id_rol.rol%}
+                                <option value="{{tmp.id_rol}}" selected>{{tmp.rol}}</option>
                                 {%else%}
-                                <option value="{{tmp.id_genero}}">{{tmp.genero}}</option>
+                                <option value="{{tmp.id_rol}}">{{tmp.rol}}</option>
                                 {% endif%}
                                 {% endfor %}
                             </select>
-                            <label for="genero" class="form-label">Genero</label>
+                            <label for="rol" class="form-label">Rol</label>
                         </div>
-                        <div class="form-floating mb-3 w-50 mx-auto">
-                            <input type="email" value={{usuario.email}} class="form-control" id="correo" name="correo">
-                            <label for="correo" class="form-label">Correo</label>
-                        </div>
+
                         <div class="form-floating mb-3 w-50 mx-auto">
                             <input type="password" value={{usuario.password}} class="form-control" id="password"
                                 name="password">

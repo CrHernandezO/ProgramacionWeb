@@ -1,11 +1,11 @@
 from django import forms
-from .models import Genero, Usuario,Anime,Marca
+from .models import Rol, Usuario,Anime,Marca
 
 from django.forms import ModelForm
 
-class GeneroForm(ModelForm):
+class RolForm(ModelForm):
     class Meta:
-        model = Genero
+        model = Rol
         fields = "__all__"
 
 class UsuarioForm(ModelForm):
